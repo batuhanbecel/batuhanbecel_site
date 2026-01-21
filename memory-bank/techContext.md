@@ -1,10 +1,12 @@
 # Tech Context
 
 ## Technologies
-- **Next.js 16.1.3**: App Router, Server Components
-- **Tailwind CSS**: Utility-first styling
-- **Framer Motion**: Subtle animations
-- **TypeScript**: Type safety
+- **Next.js 15.5.9**: App Router, Server Components
+- **Tailwind CSS 4**: Utility-first styling
+- **Framer Motion 11**: Animations
+- **TypeScript 5.7**: Type safety
+- **Lucide React**: Icons
+- **Inter Font**: Google Fonts
 
 ## Development Setup
 ```bash
@@ -18,21 +20,23 @@ docker-compose up -d
 ```
 
 ## Dependencies
-- next: 16.1.3
-- react: 19.x
-- tailwindcss: 4.x
-- framer-motion: 11.x
-- lucide-react: icons
+- next: ^15.1.3
+- react: ^19.0.0
+- tailwindcss: ^4.0.0
+- framer-motion: ^11.15.0
+- lucide-react: ^0.468.0
 
 ## File Structure
 ```
 /app
-  /layout.tsx
-  /page.tsx
-  /portfolio/page.tsx
+  /globals.css          # Theme variables, glass morphism
+  /layout.tsx           # ThemeProvider, Navigation
+  /page.tsx             # Main page sections
+  /portfolio/page.tsx   # Full portfolio gallery
 /components
-  /Navigation.tsx
-  /Hero.tsx
+  /ThemeProvider.tsx    # Dark/light mode context
+  /Navigation.tsx       # Glass nav, bottom on mobile
+  /Hero.tsx             # Social icons (custom SVGs)
   /About.tsx
   /Experience.tsx
   /Education.tsx
@@ -42,7 +46,14 @@ docker-compose up -d
   /MasonryGrid.tsx
 /public
   /portfolio-images/
+/memory-bank/           # Project documentation
 ```
+
+## Key CSS Classes
+- `.glass` - Glass morphism effect
+- `.gradient-bg` - Background gradient
+- `.text-gradient` - Text gradient
+- `.hover-lift` - Hover animation
 
 ## Deployment
 - Platform: Vercel

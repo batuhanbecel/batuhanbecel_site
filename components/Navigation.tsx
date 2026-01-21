@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Home, 
   User, 
@@ -9,9 +9,10 @@ import {
   GraduationCap, 
   Wrench, 
   Images,
-  Menu,
-  X
+  Sun,
+  Moon
 } from 'lucide-react'
+import { useTheme } from './ThemeProvider'
 
 const navItems = [
   { id: 'hero', icon: Home, label: 'Home' },
@@ -24,7 +25,7 @@ const navItems = [
 
 export default function Navigation() {
   const [activeSection, setActiveSection] = useState('hero')
-  const [isOpen, setIsOpen] = useState(false)
+  const { theme, setTheme, resolvedTheme } = useTheme()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -50,56 +51,117 @@ export default function Navigation() {
     const element = document.getElementById(id)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
-      setIsOpen(false)
     }
+  }
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
   }
 
   return (
     <>
-      {/* Mobile menu button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-50 p-2 rounded-lg bg-[var(--background)] border border-[var(--border)] md:hidden"
-        aria-label="Toggle menu"
-      >
-        {isOpen ? <X size={20} /> : <Menu size={20} />}
-      </button>
-
-      {/* Navigation */}
+      {/* Desktop Navigation - Left Side */}
       <motion.nav
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className={`fixed left-0 top-0 h-full z-40 flex flex-col items-center justify-center gap-2 py-8 px-3 bg-[var(--background)] border-r border-[var(--border)] transition-transform duration-300 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-        }`}
+        className="fixed left-4 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center gap-2 p-3 glass rounded-2xl"
       >
         {navItems.map(({ id, icon: Icon, label }) => (
-          <button
+          <motion.button
             key={id}
             onClick={() => scrollToSection(id)}
-            className={`group relative p-3 rounded-lg transition-all duration-200 ${
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className={`group relative p-3 rounded-xl transition-all duration-300 ${
               activeSection === id
-                ? 'bg-[var(--foreground)] text-[var(--background)]'
-                : 'hover:bg-[var(--border)]'
+                ? 'bg-[var(--foreground)] text-[var(--background)] shadow-lg'
+                : 'hover:bg-[var(--card-hover)]'
             }`}
             aria-label={label}
           >
             <Icon size={20} />
-            <span className="absolute left-full ml-3 px-2 py-1 text-sm whitespace-nowrap bg-[var(--foreground)] text-[var(--background)] rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            <span className="absolute left-full ml-4 px-3 py-1.5 text-sm whitespace-nowrap glass rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none translate-x-2 group-hover:translate-x-0">
               {label}
             </span>
-          </button>
+          </motion.button>
         ))}
+        
+        <div className="w-8 h-px bg-[var(--border)] my-2" />
+        
+        <motion.button
+          onClick={toggleTheme}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          className="p-3 rounded-xl hover:bg-[var(--card-hover)] transition-all duration-300"
+          aria-label="Toggle theme"
+        >
+          <AnimatePresence mode="wait">
+            {resolvedTheme === 'dark' ? (
+              <motion.div
+                key="sun"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Sun size={20} />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="moon"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Moon size={20} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.button>
       </motion.nav>
 
-      {/* Mobile overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-30 md:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      {/* Mobile Navigation - Bottom */}
+      <motion.nav
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="fixed bottom-4 left-4 right-4 z-50 md:hidden glass rounded-2xl p-2"
+      >
+        <div className="flex items-center justify-around">
+          {navItems.map(({ id, icon: Icon, label }) => (
+            <motion.button
+              key={id}
+              onClick={() => scrollToSection(id)}
+              whileTap={{ scale: 0.9 }}
+              className={`relative p-3 rounded-xl transition-all duration-300 ${
+                activeSection === id
+                  ? 'bg-[var(--foreground)] text-[var(--background)]'
+                  : ''
+              }`}
+              aria-label={label}
+            >
+              <Icon size={20} />
+              {activeSection === id && (
+                <motion.div
+                  layoutId="activeIndicator"
+                  className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-[var(--background)] rounded-full"
+                />
+              )}
+            </motion.button>
+          ))}
+          
+          <motion.button
+            onClick={toggleTheme}
+            whileTap={{ scale: 0.9 }}
+            className="p-3 rounded-xl transition-all duration-300"
+            aria-label="Toggle theme"
+          >
+            {resolvedTheme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          </motion.button>
+        </div>
+      </motion.nav>
     </>
   )
 }
