@@ -3,13 +3,18 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
-import { Mail, MapPin, Instagram, Linkedin, Phone, Music } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { useLanguage } from './LanguageProvider'
 
 const DownloadCV = dynamic(() => import('./DownloadCV'), { ssr: false })
 const ArrowRight = dynamic(() => import('lucide-react').then(mod => mod.ArrowRight), { ssr: false })
 const MusicPlayer = dynamic(() => import('./SpotifyPlayer'), { ssr: false })
+const Mail = dynamic(() => import('lucide-react').then(mod => mod.Mail), { ssr: false })
+const MapPin = dynamic(() => import('lucide-react').then(mod => mod.MapPin), { ssr: false })
+const Instagram = dynamic(() => import('lucide-react').then(mod => mod.Instagram), { ssr: false })
+const Linkedin = dynamic(() => import('lucide-react').then(mod => mod.Linkedin), { ssr: false })
+const Phone = dynamic(() => import('lucide-react').then(mod => mod.Phone), { ssr: false })
+const Music = dynamic(() => import('lucide-react').then(mod => mod.Music), { ssr: false })
 
 const titlesEN = ['Retoucher', 'Wordpress Designer', 'Video Editor', 'Creative Designer']
 const titlesTR = ['Rötuşçu', 'Wordpress Tasarımcısı', 'Video Editörü', 'Yaratıcı Tasarımcı']
@@ -144,7 +149,8 @@ export default function Hero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-[var(--muted)] mb-4 md:mb-6"
+                className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-[var(--accent)] mb-4 md:mb-6"
+                style={{ minHeight: '1.2em' }}
               >
                 <span className="text-[var(--accent)]">{titles[titleIndex]}</span>
               </motion.p>

@@ -1,6 +1,11 @@
 import fs from 'fs'
 import path from 'path'
-import PortfolioPageContent from '@/components/PortfolioPageContent'
+import dynamic from 'next/dynamic'
+
+const PortfolioPageContent = dynamic(() => import('@/components/PortfolioPageContent'), {
+  ssr: false,
+  loading: () => <div className="min-h-screen flex items-center justify-center">Loading...</div>
+})
 
 function getPortfolioImages(): string[] {
   const portfolioDir = path.join(process.cwd(), 'public', 'portfolio-images')

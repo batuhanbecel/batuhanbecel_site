@@ -86,6 +86,10 @@ None
   - Auto-watch mode for new images, excludes WebP from re-processing
   - Optimizes both main folder and favorites folder
   - Lightbox: click outside image to close functionality (fixed with simple event handling)
+  - Vercel deployment: Successfully deployed to production
+  - CV download fix: Corrected file path from Batuhan_Becel_CV.pdf to Batuhan%20Becel.pdf
+  - GitHub README: Created comprehensive documentation with features, setup, and project structure
+  - SEO updates: Simplified title from "Professional Retoucher" to "Retoucher" across all metadata
   - Navigation: removed tooltips, fixed portfolio page navigation
   - Next.js updated to 16.1.4 with Turbopack
 - Dev server: http://localhost:3000

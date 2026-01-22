@@ -19,6 +19,11 @@ Portfolio Website - Feature Complete with Full Turkish/English Support
   - Button layout: CV + Portfolio (top), Contact + Status (bottom)
   - Responsive alignment: centered on mobile, left-aligned on desktop
   - Updated social links: Added Email, Phone, and Spotify icons (6 total)
+- **Production Deployment**:
+  - Successfully deployed to Vercel production environment
+  - CV download path fixed: Batuhan%20Becel.pdf (URL-encoded space)
+  - GitHub README created with comprehensive documentation
+  - SEO metadata simplified: "Professional Retoucher" → "Retoucher"
 - **Mobile Design Overhaul**:
   - Removed music player on mobile
   - Created MobileHeader component with 3-item layout
@@ -27,7 +32,8 @@ Portfolio Website - Feature Complete with Full Turkish/English Support
   - Istanbul badge centered in Hero section (desktop only)
 - **Static CV Download**:
   - Replaced dynamic PDF generation with static PDF link
-  - CV file location: /public/cv/Batuhan_Becel_CV.pdf
+  - CV file location: /public/cv/Batuhan Becel.pdf
+  - Download path uses URL encoding: Batuhan%20Becel.pdf
 - **Accent Color Change**:
   - Changed from red (#dc2626) to golden/orange (#ffbd59)
   - Updated across all theme modes (light, dark, prefers-color-scheme)
