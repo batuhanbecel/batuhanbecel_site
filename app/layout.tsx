@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import dynamic from 'next/dynamic'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import JsonLd from '@/components/JsonLd'
 import PageTransition from '@/components/PageTransition'
@@ -115,6 +116,7 @@ export default function RootLayout({
                 {children}
               </PageTransition>
             </main>
+            <SpeedInsights />
           </LanguageProvider>
         </ThemeProvider>
       </body>
