@@ -7,7 +7,7 @@ You are an expert frontend architect and UI/UX designer. Your task is to design 
 Name: Batuhan Becel
 Age: 25
 Location: Istanbul, Türkiye
-Profession: Professional Retoucher
+Profession: Retoucher
 Experience start: 2013
 Target audience: Creative directors, agencies, brands, art directors
 

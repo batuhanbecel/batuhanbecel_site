@@ -7,7 +7,7 @@ export default function JsonLd() {
     name: 'Batuhan Becel',
     url: siteUrl,
     image: `${siteUrl}/profile.jpg`,
-    jobTitle: 'Professional Retoucher',
+    jobTitle: 'Retoucher',
     worksFor: {
       '@type': 'Organization',
       name: 'Freelance',
@@ -39,7 +39,7 @@ export default function JsonLd() {
     '@type': 'WebSite',
     name: 'Batuhan Becel',
     url: siteUrl,
-    description: 'Professional retoucher based in Istanbul, Türkiye.',
+    description: 'Retoucher based in Istanbul, Türkiye.',
     author: {
       '@type': 'Person',
       name: 'Batuhan Becel',

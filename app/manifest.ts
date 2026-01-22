@@ -2,9 +2,9 @@ import { MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Batuhan Becel | Professional Retoucher',
+    name: 'Batuhan Becel | Retoucher',
     short_name: 'Batuhan Becel',
-    description: 'Professional retoucher based in Istanbul, Türkiye.',
+    description: 'Retoucher based in Istanbul, Türkiye.',
     start_url: '/',
     display: 'standalone',
     background_color: '#0a0a0a',
