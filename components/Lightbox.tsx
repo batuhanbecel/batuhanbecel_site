@@ -66,23 +66,25 @@ export default function Lightbox({
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
           onClick={onClose}
         >
+          {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 text-white/70 hover:text-white transition-colors"
+            className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
             aria-label="Close lightbox"
           >
-            <X size={28} />
+            <X size={20} />
           </button>
 
+          {/* Previous button */}
           <button
             onClick={(e) => {
               e.stopPropagation()
               onPrev()
             }}
-            className="absolute left-4 p-2 text-white/70 hover:text-white transition-colors"
+            className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
             aria-label="Previous image"
           >
-            <ChevronLeft size={36} />
+            <ChevronLeft size={24} />
           </button>
 
           <motion.div
@@ -104,18 +106,20 @@ export default function Lightbox({
             />
           </motion.div>
 
+          {/* Next button */}
           <button
             onClick={(e) => {
               e.stopPropagation()
               onNext()
             }}
-            className="absolute right-4 p-2 text-white/70 hover:text-white transition-colors"
+            className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
             aria-label="Next image"
           >
-            <ChevronRight size={36} />
+            <ChevronRight size={24} />
           </button>
 
-          <div className="absolute bottom-4 text-white/70 text-sm">
+          {/* Counter */}
+          <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white/80 text-sm font-medium">
             {currentIndex + 1} / {images.length}
           </div>
         </motion.div>

@@ -1,18 +1,69 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Navigation from '@/components/Navigation'
+import SpotifyPlayer from '@/components/SpotifyPlayer'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import JsonLd from '@/components/JsonLd'
+import PageTransition from '@/components/PageTransition'
+import { LanguageProvider } from '@/components/LanguageProvider'
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://batuhanbecel.com'
 
 export const metadata: Metadata = {
-  title: 'Batuhan Becel | Professional Retoucher',
-  description: 'Professional retoucher based in Istanbul, Türkiye. Creative visuals, 3D projects, and high-end retouching for brands and agencies.',
-  keywords: ['retoucher', 'photo retouching', 'creative designer', 'Istanbul', 'Batuhan Becel'],
-  authors: [{ name: 'Batuhan Becel' }],
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'Batuhan Becel | Professional Retoucher',
+    template: '%s | Batuhan Becel',
+  },
+  description: 'Professional retoucher based in Istanbul, Türkiye. Creative visuals, 3D projects, and high-end retouching for brands and agencies worldwide.',
+  keywords: ['retoucher', 'photo retouching', 'creative designer', 'Istanbul', 'Batuhan Becel', 'photo editing', 'visual artist'],
+  authors: [{ name: 'Batuhan Becel', url: siteUrl }],
+  creator: 'Batuhan Becel',
+  publisher: 'Batuhan Becel',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'Batuhan Becel | Professional Retoucher',
-    description: 'Professional retoucher based in Istanbul, Türkiye.',
     type: 'website',
     locale: 'en_US',
+    alternateLocale: 'tr_TR',
+    url: siteUrl,
+    siteName: 'Batuhan Becel',
+    title: 'Batuhan Becel | Professional Retoucher',
+    description: 'Professional retoucher based in Istanbul, Türkiye. Creative visuals, 3D projects, and high-end retouching for brands and agencies.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Batuhan Becel - Professional Retoucher',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Batuhan Becel | Professional Retoucher',
+    description: 'Professional retoucher based in Istanbul, Türkiye.',
+    images: ['/og-image.png'],
+    creator: '@batuhanbecel',
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
+  alternates: {
+    canonical: siteUrl,
+    languages: {
+      'en-US': '/en',
+      'tr-TR': '/tr',
+    },
   },
 }
 
@@ -24,16 +75,26 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased">
+        <JsonLd />
         <ThemeProvider>
-          <Navigation />
-          <main className="pb-24 md:pb-0 md:ml-20">
-            {children}
-          </main>
+          <LanguageProvider>
+            <Navigation />
+            <main className="pb-20 md:pb-0">
+              <PageTransition>
+                {children}
+              </PageTransition>
+            </main>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

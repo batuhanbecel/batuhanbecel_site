@@ -7,11 +7,11 @@ import Education from '@/components/Education'
 import Skills from '@/components/Skills'
 import PortfolioPreview from '@/components/PortfolioPreview'
 
-function getPortfolioImages(): string[] {
-  const portfolioDir = path.join(process.cwd(), 'public', 'portfolio-images')
+function getFavoriteImages(): string[] {
+  const favoritesDir = path.join(process.cwd(), 'public', 'portfolio-images', 'favorites')
   
   try {
-    const files = fs.readdirSync(portfolioDir)
+    const files = fs.readdirSync(favoritesDir)
     return files.filter((file) => {
       const ext = path.extname(file).toLowerCase()
       return ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'].includes(ext)
@@ -22,7 +22,7 @@ function getPortfolioImages(): string[] {
 }
 
 export default function Home() {
-  const images = getPortfolioImages()
+  const images = getFavoriteImages()
 
   return (
     <>

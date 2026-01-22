@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Home, 
@@ -10,11 +11,13 @@ import {
   Wrench, 
   Images,
   Sun,
-  Moon
+  Moon,
+  Globe
 } from 'lucide-react'
 import { useTheme } from './ThemeProvider'
+import { useLanguage } from './LanguageProvider'
 
-const navItems = [
+const navItemsEN = [
   { id: 'hero', icon: Home, label: 'Home' },
   { id: 'about', icon: User, label: 'About' },
   { id: 'experience', icon: Briefcase, label: 'Experience' },
@@ -23,9 +26,24 @@ const navItems = [
   { id: 'portfolio-preview', icon: Images, label: 'Portfolio' },
 ]
 
+const navItemsTR = [
+  { id: 'hero', icon: Home, label: 'Ana Sayfa' },
+  { id: 'about', icon: User, label: 'Hakkımda' },
+  { id: 'experience', icon: Briefcase, label: 'Deneyim' },
+  { id: 'education', icon: GraduationCap, label: 'Eğitim' },
+  { id: 'skills', icon: Wrench, label: 'Yetenekler' },
+  { id: 'portfolio-preview', icon: Images, label: 'Portfolyo' },
+]
+
 export default function Navigation() {
   const [activeSection, setActiveSection] = useState('hero')
   const { theme, setTheme, resolvedTheme } = useTheme()
+  const { locale, setLocale } = useLanguage()
+  const pathname = usePathname()
+  const router = useRouter()
+  
+  const navItems = locale === 'tr' ? navItemsTR : navItemsEN
+  const isHomePage = pathname === '/'
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,7 +57,7 @@ export default function Navigation() {
       { threshold: 0.3, rootMargin: '-10% 0px -10% 0px' }
     )
 
-    navItems.forEach(({ id }) => {
+    navItemsEN.forEach(({ id }) => {
       const element = document.getElementById(id)
       if (element) observer.observe(element)
     })
@@ -48,14 +66,22 @@ export default function Navigation() {
   }, [])
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+    if (isHomePage) {
+      const element = document.getElementById(id)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    } else {
+      router.push(`/#${id}`)
     }
   }
 
   const toggleTheme = () => {
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+  }
+
+  const toggleLanguage = () => {
+    setLocale(locale === 'en' ? 'tr' : 'en')
   }
 
   return (
@@ -71,29 +97,24 @@ export default function Navigation() {
           <motion.button
             key={id}
             onClick={() => scrollToSection(id)}
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={`group relative p-3 rounded-xl transition-all duration-300 ${
               activeSection === id
-                ? 'bg-[var(--foreground)] text-[var(--background)] shadow-lg'
-                : 'hover:bg-[var(--card-hover)]'
+                ? 'bg-[var(--accent)] text-white shadow-lg'
+                : 'hover:bg-[var(--accent)] hover:text-white'
             }`}
             aria-label={label}
           >
             <Icon size={20} />
-            <span className="absolute left-full ml-4 px-3 py-1.5 text-sm whitespace-nowrap glass rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none translate-x-2 group-hover:translate-x-0">
-              {label}
-            </span>
           </motion.button>
         ))}
         
-        <div className="w-8 h-px bg-[var(--border)] my-2" />
-        
         <motion.button
           onClick={toggleTheme}
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="p-3 rounded-xl hover:bg-[var(--card-hover)] transition-all duration-300"
+          className="p-3 rounded-xl hover:bg-[var(--accent)] hover:text-white transition-all duration-300"
           aria-label="Toggle theme"
         >
           <AnimatePresence mode="wait">
@@ -120,14 +141,24 @@ export default function Navigation() {
             )}
           </AnimatePresence>
         </motion.button>
+
+        <motion.button
+          onClick={toggleLanguage}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="group relative p-3 rounded-xl hover:bg-[var(--accent)] hover:text-white transition-all duration-300"
+          aria-label="Toggle language"
+        >
+          <Globe size={20} />
+        </motion.button>
       </motion.nav>
 
-      {/* Mobile Navigation - Bottom */}
+      {/* Mobile Navigation - Bottom with safe area */}
       <motion.nav
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="fixed bottom-4 left-4 right-4 z-50 md:hidden glass rounded-2xl p-2"
+        className="fixed bottom-0 left-0 right-0 z-50 md:hidden glass rounded-t-2xl p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
       >
         <div className="flex items-center justify-around">
           {navItems.map(({ id, icon: Icon, label }) => (
@@ -137,18 +168,12 @@ export default function Navigation() {
               whileTap={{ scale: 0.9 }}
               className={`relative p-3 rounded-xl transition-all duration-300 ${
                 activeSection === id
-                  ? 'bg-[var(--foreground)] text-[var(--background)]'
+                  ? 'bg-[var(--accent)] text-white'
                   : ''
               }`}
               aria-label={label}
             >
               <Icon size={20} />
-              {activeSection === id && (
-                <motion.div
-                  layoutId="activeIndicator"
-                  className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-[var(--background)] rounded-full"
-                />
-              )}
             </motion.button>
           ))}
           
@@ -159,6 +184,15 @@ export default function Navigation() {
             aria-label="Toggle theme"
           >
             {resolvedTheme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          </motion.button>
+          
+          <motion.button
+            onClick={toggleLanguage}
+            whileTap={{ scale: 0.9 }}
+            className="p-3 rounded-xl transition-all duration-300 text-xs font-bold uppercase"
+            aria-label="Toggle language"
+          >
+            {locale}
           </motion.button>
         </div>
       </motion.nav>

@@ -15,9 +15,9 @@
 - Desktop: Floating vertical nav on left with glass blur
 - Mobile: Bottom navigation bar with glass blur
 - Icon-based with tooltips (desktop)
+- Accent color for active/hover states
 - Intersection Observer for active section detection
 - Smooth scroll behavior
-- Theme toggle button integrated
 
 ## Portfolio Pattern
 - Dynamic image loading from /public/portfolio-images
@@ -26,16 +26,21 @@
 - Next/Image for optimization
 
 ## Styling Pattern
-- Tailwind utility classes
+- Tailwind utility classes + custom CSS classes
 - CSS variables for theme colors (light/dark)
-- Glass morphism: backdrop-blur with semi-transparent backgrounds
+- Accent color system (#6366f1 / #818cf8)
+- Alternating section backgrounds (section-alt)
+- Card class for content containers
+- icon-btn class for icon buttons
+- btn-primary class for CTA buttons
+- progress-bar/progress-fill for skills
 - Responsive: mobile-first approach
 - Inter font from Google Fonts
 
 ## Animation Pattern
 - Framer Motion for entrance animations
-- hover-lift effect for cards
-- Gradient hover effects on skill cards
+- Card hover: border-color change + shadow + translateY
+- Progress bar fill animation on scroll
 - Smooth theme transitions
 - AnimatePresence for theme icon rotation
 
@@ -44,3 +49,11 @@
 - localStorage persistence
 - System preference detection
 - CSS class-based switching (.light / .dark)
+
+## Section Layout Pattern
+- Hero: Full viewport, centered content
+- About: section-alt background, card container
+- Experience: Timeline layout, alternating sides
+- Education: section-alt background, grid cards
+- Skills: section-alt background, progress bars
+- Portfolio: Grid layout, card hover effects

@@ -28,26 +28,27 @@ export default function MasonryGrid({ images }: MasonryGridProps) {
 
   return (
     <>
-      <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+      <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
         {images.map((image, index) => (
           <motion.div
             key={image}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.05 }}
+            transition={{ duration: 0.4, delay: index * 0.03 }}
             className="break-inside-avoid cursor-pointer group"
             onClick={() => openLightbox(index)}
           >
-            <div className="relative overflow-hidden rounded-lg">
+            <div className="relative overflow-hidden rounded-2xl border border-transparent hover:border-[var(--accent)] transition-all duration-200">
               <Image
                 src={`/portfolio-images/${image}`}
                 alt={`Portfolio work ${index + 1}`}
-                width={600}
-                height={800}
-                className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                width={800}
+                height={1000}
+                className="w-full h-auto transition-transform duration-300 group-hover:scale-[1.02]"
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                quality={90}
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-200" />
             </div>
           </motion.div>
         ))}
