@@ -8,8 +8,8 @@ export default function DownloadCV() {
   
   return (
     <a
-      href="/cv/Batuhan_Becel_CV.pdf"
-      download="Batuhan_Becel_CV.pdf"
+      href="/cv/Batuhan%20Becel.pdf"
+      download="Batuhan Becel.pdf"
       className="btn btn-outline h-10"
     >
       <Download size={16} />
