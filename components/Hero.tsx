@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import dynamic from 'next/dynamic'
@@ -39,7 +39,6 @@ function BehanceIcon({ size = 20 }: { size?: number }) {
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null)
-  const [isMobile, setIsMobile] = useState(false)
   const [titleIndex, setTitleIndex] = useState(0)
   const { locale } = useLanguage()
   
@@ -68,52 +67,33 @@ export default function Hero() {
     return () => clearInterval(interval)
   }, [])
   
-  // Mouse position tracking
-  const mouseX = useMotionValue(0.5)
-  const mouseY = useMotionValue(0.5)
-  
-  // Smooth spring physics for parallax
-  const springConfig = { damping: 50, stiffness: 100 }
-  const smoothX = useSpring(mouseX, springConfig)
-  const smoothY = useSpring(mouseY, springConfig)
-  
-  // Parallax transforms for different layers
-  const layer1X = useTransform(smoothX, [0, 1], [-15, 15])
-  const layer1Y = useTransform(smoothY, [0, 1], [-10, 10])
-  const layer2X = useTransform(smoothX, [0, 1], [10, -10])
-  const layer2Y = useTransform(smoothY, [0, 1], [8, -8])
-  const layer3X = useTransform(smoothX, [0, 1], [-8, 8])
-  const layer3Y = useTransform(smoothY, [0, 1], [-6, 6])
-  
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-  
-  useEffect(() => {
-    if (isMobile) return
     
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return
-      const rect = containerRef.current.getBoundingClientRect()
-      const x = (e.clientX - rect.left) / rect.width
-      const y = (e.clientY - rect.top) / rect.height
-      mouseX.set(x)
-      mouseY.set(y)
-    }
-    
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [isMobile, mouseX, mouseY])
-
   return (
     <section
       ref={containerRef}
       id="hero"
       className="min-h-screen relative overflow-hidden bg-[var(--background)]"
     >
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Clean Minimal Background */}
+        <div className="absolute inset-0">
+          {/* Simple Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[var(--background)] to-[var(--background-alt)]" />
+          
+          {/* Corner Accent */}
+          <div className="absolute top-10 right-10 w-32 h-32 bg-[var(--accent)]/8 rounded-full blur-2xl" />
+          <div className="absolute bottom-10 left-10 w-40 h-40 bg-[var(--accent)]/5 rounded-full blur-3xl" />
+          
+          {/* Subtle Texture */}
+          <div className="absolute inset-0 opacity-5" 
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239CA3AF' fill-opacity='0.1'%3E%3Cpath d='M0 0h40v1H0z'/%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
+        </div>
+      </div>
+      
       {/* Music Player - Top Left */}
       <MusicPlayer />
       
