@@ -109,48 +109,6 @@ export default function Navigation() {
             <Icon size={20} />
           </motion.button>
         ))}
-        
-        <motion.button
-          onClick={toggleTheme}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="p-3 rounded-xl hover:bg-[var(--accent)] hover:text-white transition-all duration-300"
-          aria-label="Toggle theme"
-        >
-          <AnimatePresence mode="wait">
-            {resolvedTheme === 'dark' ? (
-              <motion.div
-                key="sun"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Sun size={20} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="moon"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <Moon size={20} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.button>
-
-        <motion.button
-          onClick={toggleLanguage}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="group relative p-3 rounded-xl hover:bg-[var(--accent)] hover:text-white transition-all duration-300"
-          aria-label="Toggle language"
-        >
-          <Globe size={20} />
-        </motion.button>
       </motion.nav>
 
       {/* Mobile Navigation - Bottom with safe area */}
@@ -176,24 +134,6 @@ export default function Navigation() {
               <Icon size={20} />
             </motion.button>
           ))}
-          
-          <motion.button
-            onClick={toggleTheme}
-            whileTap={{ scale: 0.9 }}
-            className="p-3 rounded-xl transition-all duration-300"
-            aria-label="Toggle theme"
-          >
-            {resolvedTheme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-          </motion.button>
-          
-          <motion.button
-            onClick={toggleLanguage}
-            whileTap={{ scale: 0.9 }}
-            className="p-3 rounded-xl transition-all duration-300 text-xs font-bold uppercase"
-            aria-label="Toggle language"
-          >
-            {locale}
-          </motion.button>
         </div>
       </motion.nav>
     </>

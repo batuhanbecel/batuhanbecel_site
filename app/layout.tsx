@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Navigation from '@/components/Navigation'
+import HeaderControls from '@/components/HeaderControls'
+import MobileHeader from '@/components/MobileHeader'
 import SpotifyPlayer from '@/components/SpotifyPlayer'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import JsonLd from '@/components/JsonLd'
@@ -88,6 +90,8 @@ export default function RootLayout({
         <JsonLd />
         <ThemeProvider>
           <LanguageProvider>
+            <MobileHeader />
+            <HeaderControls />
             <Navigation />
             <main className="pb-20 md:pb-0">
               <PageTransition>

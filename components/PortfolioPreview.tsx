@@ -14,7 +14,7 @@ interface PortfolioPreviewProps {
 
 export default function PortfolioPreview({ images }: PortfolioPreviewProps) {
   const { locale } = useLanguage()
-  const previewImages = images.slice(0, 6)
+  const previewImages = images.slice(0, 6).map(img => img.replace(/\.[^/.]+$/, '.webp'))
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
 

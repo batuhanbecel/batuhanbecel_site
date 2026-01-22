@@ -40,6 +40,13 @@ export default function Lightbox({
     [isOpen, onClose, onNext, onPrev]
   )
 
+  const handleBackgroundClick = useCallback((e: React.MouseEvent) => {
+    // Only close if clicking the background, not the image
+    if (e.target === e.currentTarget) {
+      onClose()
+    }
+  }, [onClose])
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
@@ -64,12 +71,12 @@ export default function Lightbox({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
-          onClick={onClose}
+          onClick={handleBackgroundClick}
         >
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
+            className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all z-10"
             aria-label="Close lightbox"
           >
             <X size={20} />
@@ -81,19 +88,20 @@ export default function Lightbox({
               e.stopPropagation()
               onPrev()
             }}
-            className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
+            className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all z-10"
             aria-label="Previous image"
           >
             <ChevronLeft size={24} />
           </button>
 
+          {/* Image container */}
           <motion.div
             key={currentIndex}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="relative w-[90vw] h-[85vh]"
+            className="relative w-[90vw] h-[85vh] max-w-6xl"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
@@ -112,14 +120,14 @@ export default function Lightbox({
               e.stopPropagation()
               onNext()
             }}
-            className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
+            className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all z-10"
             aria-label="Next image"
           >
             <ChevronRight size={24} />
           </button>
 
           {/* Counter */}
-          <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white/80 text-sm font-medium">
+          <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white/80 text-sm font-medium z-10">
             {currentIndex + 1} / {images.length}
           </div>
         </motion.div>

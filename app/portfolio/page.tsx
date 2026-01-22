@@ -9,7 +9,7 @@ function getPortfolioImages(): string[] {
     const files = fs.readdirSync(portfolioDir)
     return files.filter((file) => {
       const ext = path.extname(file).toLowerCase()
-      return ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.avif'].includes(ext)
+      return !['.git', '.gitignore', '.ds_store', '.env', '.env.local'].includes(ext)
     })
   } catch {
     return []

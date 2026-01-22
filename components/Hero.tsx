@@ -3,20 +3,25 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
-import { Mail, MapPin, Instagram, Linkedin } from 'lucide-react'
+import { Mail, MapPin, Instagram, Linkedin, Phone, Music } from 'lucide-react'
 import dynamic from 'next/dynamic'
 import { useLanguage } from './LanguageProvider'
 
 const DownloadCV = dynamic(() => import('./DownloadCV'), { ssr: false })
-const SpotifyPlayer = dynamic(() => import('./SpotifyPlayer'), { ssr: false })
+const ArrowRight = dynamic(() => import('lucide-react').then(mod => mod.ArrowRight), { ssr: false })
+const MusicPlayer = dynamic(() => import('./SpotifyPlayer'), { ssr: false })
 
 const titlesEN = ['Retoucher', 'Wordpress Designer', 'Video Editor', 'Creative Designer']
 const titlesTR = ['Rötuşçu', 'Wordpress Tasarımcısı', 'Video Editörü', 'Yaratıcı Tasarımcı']
 
 const socialLinks = [
   { href: 'https://www.behance.net/batuhanbecel', label: 'Behance', icon: BehanceIcon },
-  { href: 'https://www.instagram.com/batuhanbecel_/', label: 'Instagram', icon: Instagram },
   { href: 'https://www.linkedin.com/in/batuhanbecel/', label: 'LinkedIn', icon: Linkedin },
+  { href: 'https://www.instagram.com/batuhanbecel_/', label: 'Instagram', icon: Instagram },
+  { href: 'https://open.spotify.com/user/batuhanbecel?si=b28af4e5d9fa4bb9', label: 'Spotify', icon: Music },
+  { href: 'mailto:batuhanbecel@gmail.com', label: 'Email', icon: Mail },
+  { href: 'tel:+905411670898', label: 'Phone', icon: Phone },
+
 ]
 
 function BehanceIcon({ size = 20 }: { size?: number }) {
@@ -104,8 +109,8 @@ export default function Hero() {
       id="hero"
       className="min-h-screen relative overflow-hidden bg-[var(--background)]"
     >
-      {/* Spotify Player - Top Left */}
-      <SpotifyPlayer />
+      {/* Music Player - Top Left */}
+      <MusicPlayer />
       
       {/* Content */}
       <div className="relative z-10 min-h-screen flex items-center px-4 sm:px-6 md:px-12 lg:px-24 pt-16 pb-24 md:py-0">
@@ -151,7 +156,7 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="text-[var(--muted)] text-sm sm:text-base md:text-lg max-w-md leading-relaxed mb-6 md:mb-8 mx-auto lg:mx-0"
               >
-                {locale === 'tr' ? "10+ yıllık deneyime sahip yaratıcı bir profesyonelim. Fotoğraf rötuşu, video düzenleme ve görsel içerik üretimi konularında uzmanım. Dünya çapında 100'den fazla projede çalıştım." : 'Creative professional with 10+ years of experience in photo retouching, video editing, and visual content creation. Worked on 100+ projects with clients worldwide.'}
+                {locale === 'tr' ? "10+ yıllık deneyime sahip yaratıcı bir profesyonelim. Fotoğraf rötuşu, video düzenleme ve görsel içerik üretimi konularında uzmanım. Sektörde 100'den fazla projede çalıştım." : 'Creative professional with 10+ years of experience in photo retouching, video editing, and visual content creation. Worked on 100+ projects with clients.'}
               </motion.p>
               
               {/* CTA and Status */}
@@ -159,24 +164,37 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className="flex flex-wrap items-center justify-center lg:justify-start gap-3 md:gap-4 mb-6 md:mb-8"
+                className="flex flex-col items-center justify-center lg:items-start lg:justify-start gap-4 mb-6 md:mb-8"
               >
-                <a 
-                  href="mailto:batuhanbecel@gmail.com"
-                  className="btn btn-solid"
-                >
-                  <Mail size={16} />
-                  {locale === 'tr' ? 'İletişim' : 'Contact'}
-                </a>
-                <DownloadCV
-                />
-                <div className="flex items-center gap-2 text-[var(--muted)] text-sm">
-                  <motion.div
-                    animate={{ scale: [1, 1.3, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="w-2 h-2 bg-green-500 rounded-full"
-                  />
-                  {locale === 'tr' ? 'İş birliğine açığım' : 'Available for collaboration'}
+                {/* Top row: CV and Portfolio */}
+                <div className="flex flex-wrap items-center gap-3 md:gap-4">
+                  <DownloadCV />
+                  <a 
+                    href="/portfolio"
+                    className="btn btn-outline h-10"
+                  >
+                    {locale === 'tr' ? 'Portfolyo' : 'Portfolio'}
+                    <ArrowRight size={16} />
+                  </a>
+                </div>
+                
+                {/* Bottom row: Contact and Status */}
+                <div className="flex flex-wrap items-center gap-3 md:gap-4">
+                  <a 
+                    href="mailto:batuhanbecel@gmail.com"
+                    className="btn btn-solid h-10"
+                  >
+                    {locale === 'tr' ? 'İletişim' : 'Contact'}
+                    <Mail size={16} />
+                  </a>
+                  <div className="flex items-center gap-2 text-[var(--muted)] text-sm h-10">
+                    <motion.div
+                      animate={{ scale: [1, 1.3, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="w-2 h-2 bg-[var(--accent)] rounded-full"
+                    />
+                    {locale === 'tr' ? 'İş birliğine açığım' : 'Available for collaboration'}
+                  </div>
                 </div>
               </motion.div>
               
@@ -211,8 +229,8 @@ export default function Hero() {
                     <motion.a
                       key={label}
                       href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      target={label === 'Email' || label === 'Phone' ? '_self' : '_blank'}
+                      rel={label === 'Email' || label === 'Phone' ? '' : 'noopener noreferrer'}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.8 + index * 0.1 }}
@@ -242,14 +260,14 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.6 }}
-        className="absolute top-8 right-8 md:top-12 md:right-12 z-20"
+        className="absolute top-8 left-1/2 -translate-x-1/2 md:top-12 z-20 hidden md:block"
       >
-        <div className="flex flex-col items-end gap-1">
+        <div className="flex flex-col items-center gap-1">
           <div className="flex items-center gap-2 text-[var(--muted)] text-sm">
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="w-2 h-2 bg-red-500 rounded-full"
+              className="w-2 h-2 bg-[var(--accent)] rounded-full"
             />
             Istanbul, Türkiye
           </div>

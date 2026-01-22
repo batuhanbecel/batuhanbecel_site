@@ -5,7 +5,7 @@ Portfolio Website - Feature Complete with Full Turkish/English Support
 
 ## Recent Changes (Latest Session)
 - **Full Multi-language Support (EN/TR)**:
-  - All sections translated: Hero, About, Experience, Education, Skills, Portfolio
+  - All sections translated: Hero, About, Experience, Education, Skills, Portfolio, Navigation
   - Navigation labels translated
   - Language toggle in navigation (Globe icon on desktop, locale code on mobile)
   - LanguageProvider context manages locale state
@@ -13,16 +13,50 @@ Portfolio Website - Feature Complete with Full Turkish/English Support
   - Static description (no longer changes with rotating title)
   - Centered content on mobile
   - Social icons integrated with profile picture (floating on right edge)
-  - Red accent corner decorations on photo
+  - Accent corner decorations on photo
+  - Music player integrated in top-left corner (hidden on mobile)
+  - Added portfolio button with responsive layout
+  - Button layout: CV + Portfolio (top), Contact + Status (bottom)
+  - Responsive alignment: centered on mobile, left-aligned on desktop
+  - Updated social links: Added Email, Phone, and Spotify icons (6 total)
+- **Mobile Design Overhaul**:
+  - Removed music player on mobile
+  - Created MobileHeader component with 3-item layout
+  - Language toggle (left), Istanbul badge (center), Theme toggle (right)
+  - HeaderControls component for desktop (top-right)
+  - Istanbul badge centered in Hero section (desktop only)
 - **Static CV Download**:
   - Replaced dynamic PDF generation with static PDF link
   - CV file location: /public/cv/Batuhan_Becel_CV.pdf
+- **Accent Color Change**:
+  - Changed from red (#dc2626) to golden/orange (#ffbd59)
+  - Updated across all theme modes (light, dark, prefers-color-scheme)
+- **Local Music Player**:
+  - Replaced Spotify embed with local MP3 player
+  - Uses /music/Batuflex-BURADA-SOKAKLAR-ft-ERAY067-Mansur-8.mp3
+  - Animated equalizer bars with accent color
+  - Turkish translations for labels
+- **Image Optimization System**:
+  - Auto WebP conversion for JPEG/PNG/BMP/TIFF
+  - In-place conversion: converts to WebP and deletes original
+  - 98.8% space savings (84.31 MB → 1.03 MB)
+  - Auto-watch mode for new images
+  - Excludes WebP files from re-processing
+  - Optimizes both main folder and favorites folder
+- **Lightbox Improvements**:
+  - Click outside image to close lightbox (fixed)
+  - Simple event handling: `e.target === e.currentTarget` pattern
+  - Proper z-index layering for interactive elements
+  - Clean structure without unnecessary overlays
+- **Navigation Improvements**:
+  - Removed tooltip labels from navigation icons
+  - Fixed navigation to work on /portfolio page
 - **SEO Enhancements**:
   - Comprehensive metadata with Open Graph and Twitter cards
   - JSON-LD structured data (Person, Website, Portfolio schemas)
   - Dynamic sitemap.xml and robots.txt
 - **PWA Support**:
-  - manifest.ts with app icons and theme colors
+  - manifest.ts for installable app
 - **Page Transitions**:
   - PageTransition component with framer-motion
 - **Custom 404 Page**:
