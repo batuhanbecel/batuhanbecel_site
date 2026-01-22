@@ -6,10 +6,10 @@ import JsonLd from '@/components/JsonLd'
 import PageTransition from '@/components/PageTransition'
 import { LanguageProvider } from '@/components/LanguageProvider'
 
-const Navigation = dynamic(() => import('@/components/Navigation'), { ssr: false })
-const HeaderControls = dynamic(() => import('@/components/HeaderControls'), { ssr: false })
-const MobileHeader = dynamic(() => import('@/components/MobileHeader'), { ssr: false })
-const SpotifyPlayer = dynamic(() => import('@/components/SpotifyPlayer'), { ssr: false })
+const Navigation = dynamic(() => import('@/components/Navigation'))
+const HeaderControls = dynamic(() => import('@/components/HeaderControls'))
+const MobileHeader = dynamic(() => import('@/components/MobileHeader'))
+const SpotifyPlayer = dynamic(() => import('@/components/SpotifyPlayer'))
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://batuhanbecel.com'
 
