@@ -116,7 +116,7 @@ export default function Navigation() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="fixed bottom-0 left-0 right-0 z-50 md:hidden glass rounded-t-2xl p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
+        className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[var(--background)]/80 backdrop-blur-sm border-t border-[var(--border)] rounded-t-2xl p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
       >
         <div className="flex items-center justify-around">
           {navItems.map(({ id, icon: Icon, label }) => (
