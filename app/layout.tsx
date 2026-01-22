@@ -6,6 +6,7 @@ import JsonLd from '@/components/JsonLd'
 import PageTransition from '@/components/PageTransition'
 import { LanguageProvider } from '@/components/LanguageProvider'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/next'
 
 const Navigation = dynamic(() => import('@/components/Navigation'))
 const HeaderControls = dynamic(() => import('@/components/HeaderControls'))
@@ -119,6 +120,7 @@ export default function RootLayout({
           </LanguageProvider>
         </ThemeProvider>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   )
