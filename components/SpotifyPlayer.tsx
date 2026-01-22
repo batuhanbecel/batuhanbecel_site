@@ -94,7 +94,7 @@ export default function MusicPlayer() {
           
           {/* Song Info */}
           <div className="flex flex-col items-start">
-            <span className="text-xs opacity-60 leading-tight">
+            <span className="text-xs leading-tight">
               {isPlaying ? 
                 (locale === 'tr' ? 'Şuan Çalıyor' : 'Now Playing') : 
                 (locale === 'tr' ? 'Müzik Çal' : 'Play Music')

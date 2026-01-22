@@ -90,6 +90,15 @@ None
   - CV download fix: Corrected file path from Batuhan_Becel_CV.pdf to Batuhan%20Becel.pdf
   - GitHub README: Created comprehensive documentation with features, setup, and project structure
   - SEO updates: Simplified title from "Professional Retoucher" to "Retoucher" across all metadata
+  - PageSpeed optimization: Complete performance overhaul based on Lighthouse analysis
+  - Color contrast fixes: Removed opacity-60, darkened accent color (#d97706) and muted text (#4b5563)
+  - JavaScript optimization: Dynamic imports for all icons and header components, package optimization
+  - Byte weight reduction: Image optimization with AVIF/WebP, compression enabled, tree shaking
+  - Font optimization: font-display: swap to prevent render-blocking, preconnect for Google Fonts
+  - Security headers: CSP, XSS protection, frame options via proxy middleware
+  - Accessibility: Skip-to-content link, proper ARIA labels, keyboard navigation
+  - Mobile CLS fix: Fixed height for rotating text animations
+  - Build fixes: Updated middleware.ts to proxy.ts, removed ssr: false from Server Components
   - Navigation: removed tooltips, fixed portfolio page navigation
   - Next.js updated to 16.1.4 with Turbopack
 - Dev server: http://localhost:3000

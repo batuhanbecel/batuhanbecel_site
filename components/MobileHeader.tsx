@@ -64,7 +64,7 @@ export default function MobileHeader() {
           />
           Istanbul, Türkiye
         </div>
-        <div className="text-[var(--muted)] text-xs font-mono tracking-wider opacity-60">
+        <div className="text-[var(--muted)] text-xs font-mono tracking-wider">
           {istanbulTime}
         </div>
       </div>

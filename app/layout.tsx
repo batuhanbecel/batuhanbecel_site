@@ -1,13 +1,15 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Navigation from '@/components/Navigation'
-import HeaderControls from '@/components/HeaderControls'
-import MobileHeader from '@/components/MobileHeader'
-import SpotifyPlayer from '@/components/SpotifyPlayer'
+import dynamic from 'next/dynamic'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import JsonLd from '@/components/JsonLd'
 import PageTransition from '@/components/PageTransition'
 import { LanguageProvider } from '@/components/LanguageProvider'
+
+const Navigation = dynamic(() => import('@/components/Navigation'), { ssr: false })
+const HeaderControls = dynamic(() => import('@/components/HeaderControls'), { ssr: false })
+const MobileHeader = dynamic(() => import('@/components/MobileHeader'), { ssr: false })
+const SpotifyPlayer = dynamic(() => import('@/components/SpotifyPlayer'), { ssr: false })
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://batuhanbecel.com'
 
@@ -85,6 +87,15 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <style>{`
+          @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2') format('woff2');
+          }
+        `}</style>
       </head>
       <body className="antialiased">
         <JsonLd />
