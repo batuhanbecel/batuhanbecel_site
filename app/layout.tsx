@@ -9,9 +9,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/next'
 
 const Navigation = dynamic(() => import('@/components/Navigation'))
-const HeaderControls = dynamic(() => import('@/components/HeaderControls'))
-const MobileHeader = dynamic(() => import('@/components/MobileHeader'))
-const SpotifyPlayer = dynamic(() => import('@/components/SpotifyPlayer'))
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://batuhanbecel.com'
 
@@ -82,8 +79,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
-        <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -105,12 +102,10 @@ export default function RootLayout({
           <LanguageProvider>
             <a 
               href="#main-content" 
-              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[var(--accent)] text-[var(--background)] px-4 py-2 rounded-md z-50 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[var(--accent)] text-white px-4 py-2 rounded-lg z-50 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
             >
               Skip to main content
             </a>
-            <MobileHeader />
-            <HeaderControls />
             <Navigation />
             <main id="main-content" className="pb-20 md:pb-0">
               <PageTransition>

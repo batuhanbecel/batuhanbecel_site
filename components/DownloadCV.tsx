@@ -10,7 +10,7 @@ export default function DownloadCV() {
     <a
       href="/cv/Batuhan%20Becel.pdf"
       download="Batuhan Becel.pdf"
-      className="btn btn-outline h-10"
+      className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium bg-[var(--accent)] text-white rounded-lg hover:bg-[var(--accent-hover)] transition-colors"
     >
       <Download size={16} />
       {locale === 'tr' ? 'CV İndir' : 'Download CV'}

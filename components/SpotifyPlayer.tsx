@@ -61,58 +61,36 @@ export default function MusicPlayer() {
 
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.6 }}
-        className="absolute top-8 left-8 md:top-12 md:left-12 z-20 hidden md:block"
+      <button
+        onClick={togglePlay}
+        className="flex items-center gap-2 text-[var(--muted)] hover:text-[var(--fg)] transition-colors cursor-pointer"
+        aria-label={isPlaying ? 'Pause music' : 'Play music'}
       >
-        <motion.button
-          onClick={togglePlay}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="flex items-center gap-2 md:gap-3 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors cursor-pointer"
-        >
-          {/* Animated Music Bars */}
-          <div className="flex items-end gap-0.5 h-4">
-            {[1, 2, 3].map((bar) => (
-              <motion.div
-                key={bar}
-                className="w-1 bg-[var(--accent)] rounded-full"
-                animate={isPlaying ? {
-                  height: ['4px', '16px', '8px', '14px', '4px'],
-                } : { height: '4px' }}
-                transition={isPlaying ? {
-                  duration: 0.8,
-                  repeat: Infinity,
-                  delay: bar * 0.1,
-                  ease: 'easeInOut',
-                } : {}}
-              />
-            ))}
-          </div>
-          
-          {/* Song Info */}
-          <div className="flex flex-col items-start">
-            <span className="text-xs leading-tight">
-              {isPlaying ? 
-                (locale === 'tr' ? 'Şuan Çalıyor' : 'Now Playing') : 
-                (locale === 'tr' ? 'Müzik Çal' : 'Play Music')
-              }
-            </span>
-            <span className="text-sm font-medium leading-tight">
-              {SONG_NAME}
-            </span>
-          </div>
-          
-          {/* Play/Pause Icon */}
-          <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-[var(--accent)] flex items-center justify-center text-white ml-1">
-            {isPlaying ? <Pause size={12} /> : <Play size={12} className="ml-0.5" />}
-          </div>
-        </motion.button>
-      </motion.div>
+        {/* Music Bars */}
+        <div className="flex items-end gap-0.5 h-3.5">
+          {[1, 2, 3].map((bar) => (
+            <motion.div
+              key={bar}
+              className="w-[3px] bg-[var(--accent)] rounded-full"
+              animate={isPlaying ? {
+                height: ['3px', '14px', '6px', '12px', '3px'],
+              } : { height: '3px' }}
+              transition={isPlaying ? {
+                duration: 0.8,
+                repeat: Infinity,
+                delay: bar * 0.1,
+                ease: 'easeInOut',
+              } : {}}
+            />
+          ))}
+        </div>
 
-      {/* Hidden Audio Element */}
+        {/* Play/Pause icon */}
+        <div className="w-6 h-6 rounded-full bg-[var(--accent)] flex items-center justify-center text-white flex-shrink-0">
+          {isPlaying ? <Pause size={10} /> : <Play size={10} className="ml-0.5" />}
+        </div>
+      </button>
+
       <audio
         ref={audioRef}
         src={MUSIC_FILE}

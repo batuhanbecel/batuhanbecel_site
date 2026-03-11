@@ -11,7 +11,7 @@ export default function LanguageToggle() {
     <motion.button
       onClick={() => setLocale(locale === 'en' ? 'tr' : 'en')}
       whileTap={{ scale: 0.95 }}
-      className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--card)] border border-[var(--border)] text-sm font-medium hover:border-[var(--accent)] transition-all"
+      className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--surface)] border border-[var(--border)] text-sm font-medium hover:border-[var(--accent)] transition-all"
       aria-label="Toggle language"
     >
       <Globe size={16} />

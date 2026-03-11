@@ -14,7 +14,7 @@ interface PortfolioPreviewProps {
 
 export default function PortfolioPreview({ images }: PortfolioPreviewProps) {
   const { locale } = useLanguage()
-  const previewImages = images.slice(0, 6).map(img => img.replace(/\.[^/.]+$/, '.webp'))
+  const previewImages = images.slice(0, 8).map(img => img.replace(/\.[^/.]+$/, '.webp'))
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -22,73 +22,80 @@ export default function PortfolioPreview({ images }: PortfolioPreviewProps) {
     setCurrentIndex(index)
     setLightboxOpen(true)
   }
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % previewImages.length)
-  }
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + previewImages.length) % previewImages.length)
-  }
+  const handleNext = () => setCurrentIndex((p) => (p + 1) % previewImages.length)
+  const handlePrev = () => setCurrentIndex((p) => (p - 1 + previewImages.length) % previewImages.length)
 
   return (
-    <section
-      id="portfolio-preview"
-      className="min-h-screen flex items-center py-24 section-alt"
-    >
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-sm md:text-base text-[var(--muted)] tracking-widest uppercase mb-4 font-medium">
-            {locale === 'tr' ? 'Portfolyo' : 'Portfolio'}
-          </h2>
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            {locale === 'tr' ? (
-              <>Seçilmiş <span className="text-gradient">çalışmalar</span></>
-            ) : (
-              <>Selected <span className="text-gradient">works</span></>
-            )}
-          </h3>
-          <Link
-            href="/portfolio"
-            className="inline-flex items-center gap-2 text-[var(--accent)] font-medium hover:underline transition-all"
+    <section id="portfolio-preview" className="py-24 md:py-32 bg-[var(--bg)]">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center gap-3 mb-8"
+            >
+              <div className="w-8 h-px bg-[var(--accent)]" />
+              <span className="text-xs font-medium uppercase tracking-widest text-[var(--accent)]">
+                {locale === 'tr' ? 'Portfolyo' : 'Portfolio'}
+              </span>
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.05 }}
+              className="text-3xl sm:text-4xl font-bold text-[var(--fg)] leading-tight"
+            >
+              {locale === 'tr' ? 'Seçilmiş çalışmalar.' : 'Selected works.'}
+            </motion.h2>
+          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            {locale === 'tr' ? 'Tüm projeleri gör' : 'View all projects'}
-            <ArrowRight size={16} />
-          </Link>
-        </motion.div>
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)] hover:underline"
+            >
+              {locale === 'tr' ? 'Tümünü gör' : 'View all'}
+              <ArrowRight size={14} />
+            </Link>
+          </motion.div>
+        </div>
 
         {previewImages.length > 0 ? (
           <>
-            <div className="grid grid-cols-2 gap-5">
+            {/* 4-column grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {previewImages.map((image, index) => (
                 <motion.div
                   key={image}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative aspect-[3/4] overflow-hidden rounded-2xl group cursor-pointer"
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  className="relative aspect-[3/4] overflow-hidden rounded-xl group cursor-pointer bg-[var(--surface)]"
                   onClick={() => openLightbox(index)}
                 >
                   <Image
                     src={`/portfolio-images/favorites/${image}`}
                     alt={`Portfolio work ${index + 1}`}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 640px) 50vw, 50vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     quality={85}
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
                 </motion.div>
               ))}
             </div>
-            
+
             <Lightbox
               images={previewImages.map(img => `favorites/${img}`)}
               currentIndex={currentIndex}
@@ -99,22 +106,17 @@ export default function PortfolioPreview({ images }: PortfolioPreviewProps) {
             />
           </>
         ) : (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="card flex flex-col items-center justify-center py-24"
-          >
-            <div className="p-4 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] mb-4">
-              <ImageIcon size={32} />
+          <div className="flex flex-col items-center justify-center py-20 rounded-xl bg-[var(--surface)] border border-[var(--border)]">
+            <div className="w-12 h-12 rounded-xl bg-[var(--accent-muted)] text-[var(--accent)] flex items-center justify-center mb-4">
+              <ImageIcon size={24} />
             </div>
-            <p className="text-[var(--foreground)] text-lg font-medium mb-2">
+            <p className="text-[var(--fg)] font-medium mb-1">
               {locale === 'tr' ? 'Henüz favori yok' : 'No favorites yet'}
             </p>
-            <p className="text-[var(--muted)] text-sm text-center">
-              {locale === 'tr' ? 'Burada görüntülemek için /public/portfolio-images/favorites klasörüne resim ekleyin' : 'Add images to /public/portfolio-images/favorites to display here'}
+            <p className="text-[var(--muted)] text-sm">
+              {locale === 'tr' ? 'favorites klasörüne resim ekleyin' : 'Add images to the favorites folder'}
             </p>
-          </motion.div>
+          </div>
         )}
       </div>
     </section>
