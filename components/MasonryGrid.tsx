@@ -47,6 +47,10 @@ export default function MasonryGrid({ images }: MasonryGridProps) {
                 className="w-full h-auto transition-transform duration-300 group-hover:scale-[1.02]"
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                 quality={90}
+                onError={(e) => {
+                  console.error(`Failed to load image: ${image}`)
+                  e.currentTarget.style.display = 'none'
+                }}
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-200" />
             </div>
