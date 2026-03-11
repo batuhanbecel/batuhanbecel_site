@@ -65,6 +65,7 @@ export default function Navigation() {
   }, [])
 
   const scrollToSection = (id: string) => {
+    setActiveSection(id)
     if (isHomePage) {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
     } else {
