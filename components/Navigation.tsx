@@ -50,6 +50,11 @@ export default function Navigation() {
 
   useEffect(() => {
     const detectSection = () => {
+      const atBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50
+      if (atBottom) {
+        setActiveSection(navItemsEN[navItemsEN.length - 1].id)
+        return
+      }
       const scrollY = window.scrollY + window.innerHeight / 3
       let current = 'hero'
       for (const { id } of navItemsEN) {
@@ -84,7 +89,7 @@ export default function Navigation() {
         className={`fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-300 ${
           scrolled
             ? 'bg-[var(--bg)]/80 backdrop-blur-xl border-b border-[var(--border)]'
-            : 'bg-transparent'
+            : 'bg-transparent border-b border-transparent'
         }`}
       >
         <div className="max-w-6xl mx-auto flex items-center justify-between h-16 px-6">
