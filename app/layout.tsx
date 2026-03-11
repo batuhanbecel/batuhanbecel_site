@@ -13,6 +13,10 @@ const Navigation = dynamic(() => import('@/components/Navigation'))
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://batuhanbecel.com'
 
 export const metadata: Metadata = {
+  icons: {
+    icon: '/memoji.png',
+    apple: '/memoji.png',
+  },
   metadataBase: new URL(siteUrl),
   title: {
     default: 'Batuhan Becel | Retoucher',
