@@ -49,19 +49,20 @@ export default function Navigation() {
   }, [])
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id)
-        })
-      },
-      { threshold: 0.3, rootMargin: '-10% 0px -10% 0px' }
-    )
-    navItemsEN.forEach(({ id }) => {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-    return () => observer.disconnect()
+    const detectSection = () => {
+      const scrollY = window.scrollY + window.innerHeight / 3
+      let current = 'hero'
+      for (const { id } of navItemsEN) {
+        const el = document.getElementById(id)
+        if (el && el.offsetTop <= scrollY) {
+          current = id
+        }
+      }
+      setActiveSection(current)
+    }
+    window.addEventListener('scroll', detectSection, { passive: true })
+    detectSection()
+    return () => window.removeEventListener('scroll', detectSection)
   }, [])
 
   const scrollToSection = (id: string) => {
