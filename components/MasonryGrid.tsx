@@ -66,7 +66,7 @@ export default function MasonryGrid({ images }: MasonryGridProps) {
 
   return (
     <>
-      <BalancedMasonryGrid frameWidth={260} gap={10}>
+      <BalancedMasonryGrid frameWidth={340} gap={10}>
         {dims.map(({ src, w, h }, index) => (
           <Frame key={src} width={w} height={h}>
             <div
