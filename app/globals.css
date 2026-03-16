@@ -7,15 +7,15 @@
 /* --- Theme: Dark (Default) --- */
 :root,
 .dark {
-  --bg: #09090b;
-  --bg-alt: #18181b;
-  --surface: #1c1c1f;
-  --surface-hover: #27272a;
+  --bg: #11131A;
+  --bg-alt: #1a1d26;
+  --surface: #1e2129;
+  --surface-hover: #24272f;
   --fg: #fafafa;
   --fg-secondary: #a1a1aa;
-  --accent: #f97316;
-  --accent-hover: #fb923c;
-  --accent-muted: rgba(249, 115, 22, 0.12);
+  --accent: #FF3B3B;
+  --accent-hover: #ff5252;
+  --accent-muted: rgba(255, 59, 59, 0.12);
   --muted: #71717a;
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.14);
@@ -35,9 +35,9 @@
   --surface-hover: #f4f4f5;
   --fg: #09090b;
   --fg-secondary: #52525b;
-  --accent: #ea580c;
-  --accent-hover: #f97316;
-  --accent-muted: rgba(234, 88, 12, 0.08);
+  --accent: #FF3B3B;
+  --accent-hover: #ff5252;
+  --accent-muted: rgba(255, 59, 59, 0.08);
   --muted: #a1a1aa;
   --border: rgba(0, 0, 0, 0.08);
   --border-strong: rgba(0, 0, 0, 0.14);
@@ -48,15 +48,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --bg: #09090b;
-    --bg-alt: #18181b;
-    --surface: #1c1c1f;
-    --surface-hover: #27272a;
+    --bg: #11131A;
+    --bg-alt: #1a1d26;
+    --surface: #1e2129;
+    --surface-hover: #24272f;
     --fg: #fafafa;
     --fg-secondary: #a1a1aa;
-    --accent: #f97316;
-    --accent-hover: #fb923c;
-    --accent-muted: rgba(249, 115, 22, 0.12);
+    --accent: #FF3B3B;
+    --accent-hover: #ff5252;
+    --accent-muted: rgba(255, 59, 59, 0.12);
     --muted: #71717a;
     --border: rgba(255, 255, 255, 0.08);
     --border-strong: rgba(255, 255, 255, 0.14);
