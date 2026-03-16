@@ -86,31 +86,31 @@ export default function Navigation() {
     <>
       {/* ── Desktop: Horizontal top bar ── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-500 ${
           scrolled
-            ? 'bg-[var(--bg)]/80 backdrop-blur-xl border-b border-[var(--border)]'
+            ? 'bg-[var(--bg)]/70 backdrop-blur-xl border-b border-[var(--border)] shadow-lg'
             : 'bg-transparent border-b border-transparent'
         }`}
       >
-        <div className="max-w-6xl mx-auto flex items-center justify-between h-16 px-6">
+        <div className="max-w-7xl mx-auto flex items-center justify-between h-20 px-8">
           {/* Logo / Name */}
           <button
             onClick={() => scrollToSection('hero')}
-            className="text-sm font-semibold tracking-tight text-[var(--fg)] hover:text-[var(--accent)] transition-colors"
+            className="text-base font-bold tracking-tight text-[var(--fg)] hover:text-[var(--accent)] transition-all duration-300 hover:scale-105"
           >
-            batuhan<span className="text-[var(--accent)]">.</span>
+            batuhan<span className="text-[var(--accent)] text-xl">.</span>
           </button>
 
           {/* Section links */}
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-2">
             {navItems.slice(1).map(({ id, label }) => (
               <button
                 key={id}
                 onClick={() => scrollToSection(id)}
-                className={`px-3 py-1.5 text-[13px] font-medium rounded-md transition-colors ${
+                className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300 ${
                   activeSection === id
-                    ? 'text-[var(--accent)] bg-[var(--accent-muted)]'
-                    : 'text-[var(--fg-secondary)] hover:text-[var(--fg)]'
+                    ? 'text-[var(--accent)] bg-[var(--accent-muted)] shadow-sm scale-105'
+                    : 'text-[var(--fg-secondary)] hover:text-[var(--fg)] hover:bg-[var(--surface)]'
                 }`}
               >
                 {label}
@@ -119,29 +119,29 @@ export default function Navigation() {
           </nav>
 
           {/* Controls */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-3">
             <MusicPlayer />
-            <div className="w-px h-4 bg-[var(--border)]" />
+            <div className="w-px h-5 bg-[var(--border-strong)]" />
             <button
               onClick={toggleLanguage}
-              className="w-8 h-8 flex items-center justify-center rounded-md text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--surface)] transition-colors"
+              className="w-10 h-10 flex items-center justify-center rounded-xl text-[var(--fg-tertiary)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition-all duration-300 hover:scale-110"
               aria-label="Toggle language"
             >
-              <Globe size={16} />
+              <Globe size={18} />
             </button>
             <button
               onClick={toggleTheme}
-              className="w-8 h-8 flex items-center justify-center rounded-md text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--surface)] transition-colors"
+              className="w-10 h-10 flex items-center justify-center rounded-xl text-[var(--fg-tertiary)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition-all duration-300 hover:scale-110"
               aria-label="Toggle theme"
             >
               <AnimatePresence mode="wait">
                 {resolvedTheme === 'dark' ? (
-                  <motion.div key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
-                    <Sun size={16} />
+                  <motion.div key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                    <Sun size={18} />
                   </motion.div>
                 ) : (
-                  <motion.div key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
-                    <Moon size={16} />
+                  <motion.div key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                    <Moon size={18} />
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -151,44 +151,48 @@ export default function Navigation() {
       </header>
 
       {/* ── Mobile: Top bar ── */}
-      <header className="fixed top-0 left-0 right-0 z-50 md:hidden bg-[var(--bg)]/80 backdrop-blur-xl border-b border-[var(--border)]">
-        <div className="flex items-center justify-between h-12 px-4">
+      <header className="fixed top-0 left-0 right-0 z-50 md:hidden bg-[var(--bg)]/70 backdrop-blur-xl border-b border-[var(--border)] shadow-lg">
+        <div className="flex items-center justify-between h-16 px-5">
           <button
             onClick={() => scrollToSection('hero')}
-            className="text-sm font-semibold text-[var(--fg)]"
+            className="text-base font-bold text-[var(--fg)] hover:text-[var(--accent)] transition-colors"
           >
-            batuhan<span className="text-[var(--accent)]">.</span>
+            batuhan<span className="text-[var(--accent)] text-lg">.</span>
           </button>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <MusicPlayer />
-            <div className="w-px h-4 bg-[var(--border)]" />
-            <button onClick={toggleLanguage} className="w-8 h-8 flex items-center justify-center text-[var(--muted)]" aria-label="Toggle language">
-              <Globe size={16} />
+            <div className="w-px h-5 bg-[var(--border-strong)]" />
+            <button onClick={toggleLanguage} className="w-10 h-10 flex items-center justify-center rounded-xl text-[var(--fg-tertiary)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition-all" aria-label="Toggle language">
+              <Globe size={18} />
             </button>
-            <button onClick={toggleTheme} className="w-8 h-8 flex items-center justify-center text-[var(--muted)]" aria-label="Toggle theme">
-              {resolvedTheme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            <button onClick={toggleTheme} className="w-10 h-10 flex items-center justify-center rounded-xl text-[var(--fg-tertiary)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition-all" aria-label="Toggle theme">
+              {resolvedTheme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
           </div>
         </div>
       </header>
 
       {/* ── Mobile: Bottom tab bar ── */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[var(--bg)]/90 backdrop-blur-xl border-t border-[var(--border)] pb-[max(0.25rem,env(safe-area-inset-bottom))]">
-        <div className="flex items-center justify-around h-14">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-[var(--bg)]/70 backdrop-blur-xl border-t border-[var(--border)] shadow-[0_-4px_24px_rgba(0,0,0,0.3)] pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+        <div className="flex items-center justify-around h-16 px-2">
           {navItems.map(({ id, icon: Icon, label }) => (
             <button
               key={id}
               onClick={() => scrollToSection(id)}
-              className={`flex flex-col items-center justify-center gap-0.5 w-14 h-full transition-colors ${
+              className={`flex flex-col items-center justify-center gap-1 flex-1 h-full rounded-xl transition-all duration-300 ${
                 activeSection === id
-                  ? 'text-[var(--accent)]'
-                  : 'text-[var(--muted)]'
+                  ? 'text-[var(--accent)] scale-105'
+                  : 'text-[var(--fg-tertiary)] hover:text-[var(--fg-secondary)]'
               }`}
               aria-label={label}
             >
-              <Icon size={18} />
+              <Icon size={20} strokeWidth={activeSection === id ? 2.5 : 2} />
               {activeSection === id && (
-                <div className="w-1 h-1 rounded-full bg-[var(--accent)]" />
+                <motion.div 
+                  layoutId="activeTab"
+                  className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" 
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
               )}
             </button>
           ))}

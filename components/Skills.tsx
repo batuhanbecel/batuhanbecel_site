@@ -33,46 +33,47 @@ export default function Skills() {
   const hobbies = locale === 'tr' ? hobbiesTR : hobbiesEN
 
   return (
-    <section id="skills" className="py-24 md:py-32 bg-[var(--bg-alt)]">
-      <div className="max-w-3xl mx-auto px-6">
+    <section id="skills" className="py-28 md:py-36 bg-[var(--bg-alt)] relative overflow-hidden">
+      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[var(--accent)] opacity-[0.02] blur-[100px] rounded-full" />
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
         {/* Section label */}
-        <motion.div {...fade} className="flex items-center gap-3 mb-8">
-          <div className="w-8 h-px bg-[var(--accent)]" />
-          <span className="text-xs font-medium uppercase tracking-widest text-[var(--accent)]">
+        <motion.div {...fade} className="flex items-center gap-4 mb-10">
+          <div className="w-12 h-[2px] bg-gradient-to-r from-[var(--accent)] to-transparent rounded-full" />
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)]">
             {locale === 'tr' ? 'Yetenekler' : 'Skills'}
           </span>
         </motion.div>
 
-        <motion.h2 {...fade} className="text-3xl sm:text-4xl font-bold text-[var(--fg)] leading-tight mb-12">
+        <motion.h2 {...fade} transition={{ duration: 0.6, delay: 0.1 }} className="text-4xl sm:text-5xl font-bold text-[var(--fg)] leading-tight mb-16">
           {locale === 'tr' ? 'Araçlar ve yetkinlikler.' : 'Tools & proficiency.'}
         </motion.h2>
 
         {/* Software Skills */}
-        <div className="space-y-5 mb-16">
+        <div className="space-y-6 mb-20">
           {softwareSkills.map((skill, i) => (
             <motion.div
               key={skill.name}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.06 }}
-              className="flex items-center gap-4"
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="flex items-center gap-5"
             >
-              <div className="w-10 h-10 rounded-lg bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center flex-shrink-0">
-                <Image src={skill.icon} alt={skill.name} width={22} height={22} className="w-[22px] h-[22px] skill-icon" />
+              <div className="w-14 h-14 rounded-xl bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center flex-shrink-0 shadow-sm hover:shadow-md hover:border-[var(--border-strong)] transition-all duration-300">
+                <Image src={skill.icon} alt={skill.name} width={26} height={26} className="w-[26px] h-[26px] skill-icon" />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-sm font-medium text-[var(--fg)]">{skill.name}</span>
-                  <span className="text-xs text-[var(--muted)] tabular-nums">{skill.percentage}%</span>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-base font-semibold text-[var(--fg)]">{skill.name}</span>
+                  <span className="text-sm font-bold text-[var(--accent)] tabular-nums">{skill.percentage}%</span>
                 </div>
-                <div className="progress-bar h-1.5">
+                <div className="progress-bar h-2">
                   <motion.div
                     className="progress-fill h-full"
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.percentage}%` }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.2 + i * 0.06, ease: 'easeOut' }}
+                    transition={{ duration: 1, delay: 0.2 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                   />
                 </div>
               </div>
@@ -81,30 +82,30 @@ export default function Skills() {
         </div>
 
         {/* Languages & Hobbies side by side */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {/* Languages */}
-          <motion.div {...fade}>
-            <h3 className="text-sm font-semibold text-[var(--fg)] mb-4">
+          <motion.div {...fade} transition={{ duration: 0.5, delay: 0.2 }}>
+            <h3 className="text-base font-bold text-[var(--fg)] mb-5">
               {locale === 'tr' ? 'Diller' : 'Languages'}
             </h3>
             <div className="space-y-3">
               {languageSkills.map((lang) => (
-                <div key={lang.name} className="flex items-center justify-between p-3 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                  <span className="text-sm font-medium text-[var(--fg)]">{lang.name}</span>
-                  <span className="text-xs text-[var(--accent)] font-medium">{lang.label}</span>
+                <div key={lang.name} className="flex items-center justify-between p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)] hover:border-[var(--border-strong)] hover:shadow-md transition-all duration-300">
+                  <span className="text-sm font-semibold text-[var(--fg)]">{lang.name}</span>
+                  <span className="text-xs text-[var(--accent)] font-bold uppercase tracking-wider">{lang.label}</span>
                 </div>
               ))}
             </div>
           </motion.div>
 
           {/* Hobbies */}
-          <motion.div {...fade}>
-            <h3 className="text-sm font-semibold text-[var(--fg)] mb-4">
+          <motion.div {...fade} transition={{ duration: 0.5, delay: 0.3 }}>
+            <h3 className="text-base font-bold text-[var(--fg)] mb-5">
               {locale === 'tr' ? 'İlgi Alanları' : 'Interests'}
             </h3>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3">
               {hobbies.map((hobby) => (
-                <span key={hobby} className="px-3 py-1.5 text-sm rounded-lg bg-[var(--surface)] border border-[var(--border)] text-[var(--fg-secondary)]">
+                <span key={hobby} className="px-4 py-2 text-sm font-medium rounded-xl bg-[var(--surface)] border border-[var(--border)] text-[var(--fg-secondary)] hover:text-[var(--accent)] hover:border-[var(--border-accent)] hover:bg-[var(--accent-subtle)] transition-all duration-300 cursor-default">
                   {hobby}
                 </span>
               ))}

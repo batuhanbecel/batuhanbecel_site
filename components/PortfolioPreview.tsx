@@ -26,20 +26,21 @@ export default function PortfolioPreview({ images }: PortfolioPreviewProps) {
   const handlePrev = () => setCurrentIndex((p) => (p - 1 + previewImages.length) % previewImages.length)
 
   return (
-    <section id="portfolio-preview" className="py-24 md:py-32 bg-[var(--bg)]">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="portfolio-preview" className="py-28 md:py-36 bg-[var(--bg)] relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[var(--accent)] opacity-[0.02] blur-[120px] rounded-full" />
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-16">
           <div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="flex items-center gap-3 mb-8"
+              className="flex items-center gap-4 mb-10"
             >
-              <div className="w-8 h-px bg-[var(--accent)]" />
-              <span className="text-xs font-medium uppercase tracking-widest text-[var(--accent)]">
+              <div className="w-12 h-[2px] bg-gradient-to-r from-[var(--accent)] to-transparent rounded-full" />
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)]">
                 {locale === 'tr' ? 'Portfolyo' : 'Portfolio'}
               </span>
             </motion.div>
@@ -47,24 +48,24 @@ export default function PortfolioPreview({ images }: PortfolioPreviewProps) {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.05 }}
-              className="text-3xl sm:text-4xl font-bold text-[var(--fg)] leading-tight"
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-4xl sm:text-5xl font-bold text-[var(--fg)] leading-tight"
             >
               {locale === 'tr' ? 'Seçilmiş çalışmalar.' : 'Selected works.'}
             </motion.h2>
           </div>
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
           >
             <Link
               href="/portfolio"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)] hover:underline"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-[var(--accent)] bg-[var(--accent-subtle)] border border-[var(--border-accent)] rounded-xl hover:bg-[var(--accent-muted)] hover:shadow-md transition-all duration-300"
             >
               {locale === 'tr' ? 'Tümünü gör' : 'View all'}
-              <ArrowRight size={14} />
+              <ArrowRight size={16} />
             </Link>
           </motion.div>
         </div>
@@ -72,26 +73,28 @@ export default function PortfolioPreview({ images }: PortfolioPreviewProps) {
         {previewImages.length > 0 ? (
           <>
             {/* 4-column grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {previewImages.map((image, index) => (
                 <motion.div
                   key={image}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="relative aspect-[3/4] overflow-hidden rounded-xl group cursor-pointer bg-[var(--surface)]"
+                  transition={{ duration: 0.5, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="relative aspect-[3/4] overflow-hidden rounded-2xl group cursor-pointer bg-[var(--surface)] border border-[var(--border)] hover:border-[var(--border-strong)] shadow-sm hover:shadow-xl transition-all duration-300"
                   onClick={() => openLightbox(index)}
                 >
                   <Image
                     src={`/portfolio-images/favorites/${image}`}
                     alt={`Portfolio work ${index + 1}`}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    quality={85}
+                    quality={90}
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
                 </motion.div>
               ))}
             </div>
@@ -106,14 +109,14 @@ export default function PortfolioPreview({ images }: PortfolioPreviewProps) {
             />
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center py-20 rounded-xl bg-[var(--surface)] border border-[var(--border)]">
-            <div className="w-12 h-12 rounded-xl bg-[var(--accent-muted)] text-[var(--accent)] flex items-center justify-center mb-4">
-              <ImageIcon size={24} />
+          <div className="flex flex-col items-center justify-center py-24 rounded-2xl bg-[var(--surface)] border-2 border-dashed border-[var(--border)]">
+            <div className="w-16 h-16 rounded-2xl bg-[var(--accent-muted)] text-[var(--accent)] flex items-center justify-center mb-5">
+              <ImageIcon size={28} />
             </div>
-            <p className="text-[var(--fg)] font-medium mb-1">
+            <p className="text-[var(--fg)] font-semibold text-lg mb-2">
               {locale === 'tr' ? 'Henüz favori yok' : 'No favorites yet'}
             </p>
-            <p className="text-[var(--muted)] text-sm">
+            <p className="text-[var(--fg-tertiary)] text-sm">
               {locale === 'tr' ? 'favorites klasörüne resim ekleyin' : 'Add images to the favorites folder'}
             </p>
           </div>

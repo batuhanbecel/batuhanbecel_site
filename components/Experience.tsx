@@ -26,17 +26,18 @@ export default function Experience() {
   const experiences = locale === 'tr' ? experiencesTR : experiencesEN
 
   return (
-    <section id="experience" className="py-24 md:py-32 bg-[var(--bg-alt)]">
-      <div className="max-w-3xl mx-auto px-6">
+    <section id="experience" className="py-28 md:py-36 bg-[var(--bg-alt)] relative overflow-hidden">
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[var(--accent)] opacity-[0.02] blur-[100px] rounded-full" />
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
         {/* Section label */}
-        <motion.div {...fade} className="flex items-center gap-3 mb-8">
-          <div className="w-8 h-px bg-[var(--accent)]" />
-          <span className="text-xs font-medium uppercase tracking-widest text-[var(--accent)]">
+        <motion.div {...fade} className="flex items-center gap-4 mb-10">
+          <div className="w-12 h-[2px] bg-gradient-to-r from-[var(--accent)] to-transparent rounded-full" />
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)]">
             {locale === 'tr' ? 'Deneyim' : 'Experience'}
           </span>
         </motion.div>
 
-        <motion.h2 {...fade} className="text-3xl sm:text-4xl font-bold text-[var(--fg)] leading-tight mb-12">
+        <motion.h2 {...fade} transition={{ duration: 0.6, delay: 0.1 }} className="text-4xl sm:text-5xl font-bold text-[var(--fg)] leading-tight mb-16">
           {locale === 'tr' ? 'Profesyonel yolculuk.' : 'Professional journey.'}
         </motion.h2>
 
@@ -45,31 +46,31 @@ export default function Experience() {
           {experiences.map((exp, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="relative pl-8 pb-10 last:pb-0 border-l border-[var(--border)]"
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="relative pl-10 pb-12 last:pb-0 border-l-2 border-[var(--border-strong)]"
             >
               {/* Dot */}
-              <div className={`absolute -left-[5px] top-1 w-2.5 h-2.5 rounded-full ${
-                exp.current ? 'bg-[var(--accent)]' : 'bg-[var(--muted)]'
+              <div className={`absolute -left-[9px] top-1.5 w-4 h-4 rounded-full border-2 border-[var(--bg-alt)] ${
+                exp.current ? 'bg-[var(--accent)] shadow-[0_0_12px_var(--accent)]' : 'bg-[var(--surface)]'
               }`} />
 
               {/* Period */}
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">{exp.period}</span>
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-xs font-bold text-[var(--fg-tertiary)] uppercase tracking-[0.15em]">{exp.period}</span>
                 {exp.current && (
-                  <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[var(--accent-muted)] text-[var(--accent)]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[var(--accent-muted)] text-[var(--accent)] border border-[var(--border-accent)]">
                     {locale === 'tr' ? 'Güncel' : 'Current'}
                   </span>
                 )}
               </div>
 
               {/* Role & Company */}
-              <h3 className="text-lg font-semibold text-[var(--fg)] mb-1">{exp.role}</h3>
-              <p className="text-sm font-medium text-[var(--accent)] mb-2">{exp.company}</p>
-              <p className="text-sm text-[var(--fg-secondary)] leading-relaxed">{exp.description}</p>
+              <h3 className="text-xl font-bold text-[var(--fg)] mb-2">{exp.role}</h3>
+              <p className="text-sm font-semibold text-[var(--accent)] mb-3">{exp.company}</p>
+              <p className="text-base text-[var(--fg-secondary)] leading-relaxed">{exp.description}</p>
             </motion.div>
           ))}
         </div>

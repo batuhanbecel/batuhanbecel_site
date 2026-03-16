@@ -48,24 +48,28 @@ export default function Hero() {
   }, [titles.length])
 
   return (
-    <section ref={containerRef} id="hero" className="min-h-screen relative bg-[var(--bg)] flex items-center justify-center">
+    <section ref={containerRef} id="hero" className="min-h-screen relative bg-[var(--bg)] flex items-center justify-center overflow-hidden">
+      {/* Gradient background */}
+      <div className="absolute inset-0 gradient-radial opacity-40" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[var(--accent)] opacity-[0.03] blur-[120px] rounded-full" />
+      
       {/* Centered content */}
-      <div className="relative z-10 w-full max-w-2xl mx-auto px-6 pt-24 pb-20 md:pt-28 md:pb-24 flex flex-col items-center text-center">
+      <div className="relative z-10 w-full max-w-3xl mx-auto px-6 pt-28 pb-24 md:pt-32 md:pb-28 flex flex-col items-center text-center">
         {/* Memoji - top center */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 mb-10"
+          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="relative w-44 h-44 sm:w-52 sm:h-52 md:w-60 md:h-60 mb-12"
         >
-          <div className="absolute inset-2 rounded-full bg-[var(--accent)]/8 blur-2xl" />
-          <div className="relative w-full h-full rounded-full overflow-hidden bg-[var(--surface)] border border-[var(--border)]">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--accent)]/20 to-transparent blur-3xl animate-pulse" />
+          <div className="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-[var(--surface)] to-[var(--surface-hover)] border-2 border-[var(--border-strong)] shadow-xl">
             <Image
               src="/memoji.png"
               alt="Batuhan Becel"
               fill
-              className="object-cover"
-              sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, 224px"
+              className="object-cover scale-105"
+              sizes="(max-width: 640px) 176px, (max-width: 768px) 208px, 240px"
               quality={95}
               priority
             />
@@ -74,30 +78,30 @@ export default function Hero() {
 
         {/* Name */}
         <motion.h1
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[0.95] text-[var(--fg)] mb-4"
+          transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[0.95] text-[var(--fg)] mb-5"
         >
-          Batuhan <span className="text-[var(--accent)]">Becel</span>
+          Batuhan <span className="bg-gradient-to-r from-[var(--accent)] to-[var(--accent-hover)] bg-clip-text text-transparent">Becel</span>
         </motion.h1>
 
         {/* Rotating role */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-lg sm:text-xl text-[var(--fg-secondary)] font-light mb-6 min-h-[1.5em]"
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="text-xl sm:text-2xl text-[var(--fg-secondary)] font-medium mb-8 min-h-[1.75em]"
         >
-          {titles[titleIndex]}
+          <span className="inline-block">{titles[titleIndex]}</span>
         </motion.div>
 
         {/* Bio */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-sm sm:text-base text-[var(--muted)] leading-relaxed max-w-md mb-8"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="text-base sm:text-lg text-[var(--fg-tertiary)] leading-relaxed max-w-xl mb-10"
         >
           {locale === 'tr'
             ? 'İstanbul merkezli rötuşçu ve görsel hikaye anlatıcısı. 10+ yıllık deneyimle markalar için yaratıcı görseller üretiyorum.'
@@ -106,15 +110,15 @@ export default function Hero() {
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex flex-wrap justify-center gap-3 mb-8"
+          transition={{ duration: 0.6, delay: 0.45 }}
+          className="flex flex-wrap justify-center gap-4 mb-10"
         >
           <DownloadCV />
           <a
             href="/portfolio"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-[var(--fg)] border border-[var(--border-strong)] rounded-lg hover:bg-[var(--surface)] transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-[var(--fg)] bg-[var(--surface)] border border-[var(--border-strong)] rounded-xl hover:bg-[var(--surface-hover)] hover:border-[var(--border-accent)] hover:shadow-lg transition-all duration-300"
           >
             {locale === 'tr' ? 'Portfolyo' : 'View Work'}
           </a>
@@ -122,30 +126,41 @@ export default function Hero() {
 
         {/* Social row */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="flex items-center justify-center gap-2"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.55 }}
+          className="flex items-center justify-center gap-3"
         >
-          {socialLinks.map(({ href, label, icon: Icon }) => (
-            <a
+          {socialLinks.map(({ href, label, icon: Icon }, index) => (
+            <motion.a
               key={label}
               href={href}
               target={label === 'Email' || label === 'Phone' ? '_self' : '_blank'}
               rel={label === 'Email' || label === 'Phone' ? '' : 'noopener noreferrer'}
-              className="w-9 h-9 flex items-center justify-center rounded-lg text-[var(--muted)] hover:text-[var(--accent)] hover:bg-[var(--accent-muted)] transition-colors"
+              className="w-11 h-11 flex items-center justify-center rounded-xl text-[var(--fg-tertiary)] bg-[var(--surface)] border border-[var(--border)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] hover:border-[var(--border-accent)] hover:scale-110 transition-all duration-300"
               aria-label={label}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.6 + index * 0.05 }}
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <Icon size={17} />
-            </a>
+              <Icon size={18} />
+            </motion.a>
           ))}
         </motion.div>
       </div>
 
       {/* Scroll hint */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-[var(--muted)] opacity-40">
-        <ArrowDown size={16} className="animate-bounce" />
-      </div>
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-[var(--fg-tertiary)] opacity-50 hover:opacity-100 transition-opacity"
+      >
+        <span className="text-xs font-medium uppercase tracking-wider">Scroll</span>
+        <ArrowDown size={18} className="animate-bounce" />
+      </motion.div>
     </section>
   )
 }
